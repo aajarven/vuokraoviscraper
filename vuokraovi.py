@@ -6,12 +6,6 @@ import requests
 import stringHandler
 import urllib
 
-#url = "https://www.vuokraovi.com/vuokra-asunto/helsinki/arabianranta/kerrostalo/547253"
-url = "https://www.vuokraovi.com/vuokra-asunto/helsinki/kerrostalo/169310"
-#url = "https://www.vuokraovi.com/vuokra-asunto/helsinki/arabianranta/kerrostalo/701979"
-#url = "https://www.vuokraovi.com/vuokra-asunto/helsinki/kerrostalo/704590"
-#headers = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0'}
-
 if __name__ == '__main__':
 	parser = OptionParser("usage: %prog [options] url saveloc")
 	
@@ -27,19 +21,19 @@ if __name__ == '__main__':
 	r = requests.get(url)
 	htmlText = stringHandler.removeExcessNewlines(r.text)
 
-	raakakuvat = []
-	parser = html.imageFinder(raakakuvat)
+	rawUrls = []
+	parser = html.imageFinder(rawUrls)
 	parser.feed(htmlText)
 
-	kuvaurlit = stringHandler.pickImageUrls(raakakuvat)
+	imageUrls = stringHandler.pickImageUrls(rawUrls)
 
-	kuvaindeksi = 1
-	for kuvaurl in kuvaurlit:
-		urllib.urlretrieve(kuvaurl, stringHandler.generateFilename(kuvaurl,
+	imageIndex = 1
+	for imageUrl in imageUrls:
+		urllib.urlretrieve(imageUrl, stringHandler.generateFilename(imageUrl,
 																dirname +
 															 "testikuva" +
-																'{:02d}'.format(kuvaindeksi)))
-		kuvaindeksi += 1
+																'{:02d}'.format(imageIndex)))
+		imageIndex += 1
 
 	f = open('output.txt', 'w')
 	#f.write(html.encode('utf8'))
