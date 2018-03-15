@@ -13,13 +13,16 @@ url = "https://www.vuokraovi.com/vuokra-asunto/helsinki/kerrostalo/169310"
 #headers = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0'}
 
 if __name__ == '__main__':
-	parser = OptionParser("usage: %prog [options] url")
+	parser = OptionParser("usage: %prog [options] url saveloc")
 	
 	(opts, args) = parser.parse_args()
-	if len(args) < 1:
-		parser.error("no url given")
+	if len(args) < 2:
+		parser.error("url or save location missing")
 
 	url = args[0]
+	dirname = args[1]
+	if not dirname.endswith('/'):
+		dirname = dirname + '/'
 
 	r = requests.get(url)
 	htmlText = stringHandler.removeExcessNewlines(r.text)
@@ -33,7 +36,8 @@ if __name__ == '__main__':
 	kuvaindeksi = 1
 	for kuvaurl in kuvaurlit:
 		urllib.urlretrieve(kuvaurl, stringHandler.generateFilename(kuvaurl,
-																"testikuva" +
+																dirname +
+															 "testikuva" +
 																'{:02d}'.format(kuvaindeksi)))
 		kuvaindeksi += 1
 
