@@ -7,8 +7,10 @@ class invalidUrlException(Exception):
 	Exception reised when image url does not end in filename extension ('.'
 	and up to five following characters)
 
-	Attributes:
-		msg  -- explanation of the Error
+	Attributes
+	----------
+	msg : string
+		explanation of the Error
 	"""
 
 	def __init__(self, msg):
@@ -20,8 +22,15 @@ def removeExcessNewlines(text):
 	"""
 	Removes empty lines from text
 
-	Attributes:
-		text -- text from which the empty lines are removed
+	Attributes
+	----------
+	text : string
+		text from which the empty lines are removed
+
+	Returns
+	-------
+	string
+		text without duplicated newlines
 	"""
 	return "\n".join([ll.rstrip() for ll in text.splitlines() if ll.strip()]) 
 
@@ -31,8 +40,15 @@ def pickImageUrls(strings):
 	housing agency) in them, removes the image size string and replaces '//'
 	with 'https://' to make a valid url
 
-	Attributes:
-		strings -- the urls from which full-size images are searched from
+	Attributes
+	----------
+	strings : string array
+		the urls from which full-size images are searched from
+
+	Returns
+	-------
+	string array
+		the urls
 	"""
 	kuvaurlit = []
 	for url in strings:
@@ -46,12 +62,22 @@ def generateFilename(url, base):
 	Generates filename for the image from given url using the given base and
 	the same extension as in the url
 
-	Attributes:
-		url  -- the url to which the extension is matched
-		base -- base of the filename to which the extension is added
-	
-	Raises:
-		invalidUrlException -- when url does not contain a file extension
+	Attributes
+	----------
+	url : string
+		the url to which the extension is matched
+	base : string
+		base of the filename to which the extension is added
+
+	Returns
+	-------
+	string
+		the filename
+
+	Raises
+	------
+	invalidUrlException
+		when url does not contain a file extension
 	"""
 
 	for i in range(1, 5):
