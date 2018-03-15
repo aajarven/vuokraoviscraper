@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import html
+from optparse import OptionParser
 import requests
 import stringHandler
 import urllib
@@ -11,21 +12,30 @@ url = "https://www.vuokraovi.com/vuokra-asunto/helsinki/kerrostalo/169310"
 #url = "https://www.vuokraovi.com/vuokra-asunto/helsinki/kerrostalo/704590"
 #headers = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0'}
 
-r = requests.get(url)
-htmlText = stringHandler.removeExcessNewlines(r.text)
+if __name__ == '__main__':
+	parser = OptionParser("usage: %prog [options] url")
+	
+	(opts, args) = parser.parse_args()
+	if len(args) < 1:
+		parser.error("no url given")
 
-raakakuvat = []
-parser = html.imageFinder(raakakuvat)
-parser.feed(htmlText)
+	url = args[0]
 
-kuvaurlit = stringHandler.pickImageUrls(raakakuvat)
+	r = requests.get(url)
+	htmlText = stringHandler.removeExcessNewlines(r.text)
 
-kuvaindeksi = 1
-for kuvaurl in kuvaurlit:
-	urllib.urlretrieve(kuvaurl, stringHandler.generateFilename(kuvaurl,
-															"testikuva" +
-															'{:02d}'.format(kuvaindeksi)))
-	kuvaindeksi += 1
+	raakakuvat = []
+	parser = html.imageFinder(raakakuvat)
+	parser.feed(htmlText)
 
-f = open('output.txt', 'w')
-#f.write(html.encode('utf8'))
+	kuvaurlit = stringHandler.pickImageUrls(raakakuvat)
+
+	kuvaindeksi = 1
+	for kuvaurl in kuvaurlit:
+		urllib.urlretrieve(kuvaurl, stringHandler.generateFilename(kuvaurl,
+																"testikuva" +
+																'{:02d}'.format(kuvaindeksi)))
+		kuvaindeksi += 1
+
+	f = open('output.txt', 'w')
+	#f.write(html.encode('utf8'))
