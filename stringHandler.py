@@ -103,3 +103,78 @@ def removeParagraphTags(text):
 		A string where <p> tags have been replaced with newlines
 	"""
 	return re.sub("(<p>\s*)+", "\n", text)
+
+def cleanTableHeader(header):
+	"""
+	Removes whitespace and ':'
+
+	Attributes
+	----------
+	header : string
+		header to be cleaned
+
+	Returns
+	-------
+	string
+		cleaned header
+	"""
+	return re.sub(":", "", header.strip())
+
+def concatData(original, added, separator):
+	"""
+	Concatenates additional string to original string, separated with a
+	separator. If original string is empty, returns the additional string
+	alone.
+
+	Attributes
+	----------
+	original : string
+		the original string (beginning of the new string)
+	added : string
+		the string to be added to the original string (end of the new string)
+	separator : string
+		the separator to be placed between the original and added strings
+	"""
+	if len(original) > 0:
+		if len(added.strip()) > 0 and added.strip() != '\n':
+			return original + separator + added.strip()
+		else:
+			return original
+	else:
+		if len(added.strip()) > 0 and added.strip() != '\n':
+			return added.strip()
+		else:
+			return ""
+
+def removeExcessSpaces(text):
+	"""
+	removes duplicate spaces, e.g. "stri      ng" -> "stri ng"
+	
+	Attributes
+	----------
+	text : string
+		string from which duplicate spaces are removed
+
+	Returns
+	-------
+	string
+		same text without concurrent spaces
+	"""
+
+	return re.sub(" +", " ", text)
+
+def removeAllNewlines(text):
+	"""
+	Removes all newlines from text and replaces them with spaces
+
+	Attributes
+	----------
+	text : string
+		string from which the newlines are removed
+	
+	Returns
+	-------
+	string
+		the same string without newlines
+	"""
+	return re.sub("\n", " ", text)

@@ -22,8 +22,8 @@ if __name__ == '__main__':
 	htmlText = stringHandler.removeExcessNewlines(r.text)
 
 	rawUrls = []
-	parser = html.imageFinder(rawUrls)
-	parser.feed(htmlText)
+	imageParser = html.imageFinder(rawUrls)
+	imageParser.feed(htmlText)
 
 	imageUrls = stringHandler.pickImageUrls(rawUrls)
 
@@ -35,5 +35,13 @@ if __name__ == '__main__':
 																'{:02d}'.format(imageIndex)))
 		imageIndex += 1
 
-	f = open('output.txt', 'w')
-	#f.write(html.encode('utf8'))
+	#asdf = stringHandler.removeParagraphTags(htmlText)
+	#f = open('output.txt', 'w')
+	#f.write(asdf.encode('utf8'))
+	
+	dataDict = {}
+	tableParser = html.tableReader(dataDict)
+	tableParser.feed(stringHandler.removeParagraphTags(htmlText))
+#	for key in dataDict:
+#		print(key + ": " + dataDict[key])
+
