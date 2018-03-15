@@ -60,3 +60,20 @@ def generateFilename(url, base):
 
 	# raise error if no extension found
 	raise invalidUrlException("Invalid url, no extension found: " + url)
+
+def removeParagraphTags(text):
+	"""
+	Removes <p> tags and replaces each sequence whitespace-separated <p> tags
+	with a single newline
+
+	Attributes
+	----------
+	text : string
+		Text in which the <p> tags are to be replaced
+
+	Returns
+	-------
+	string
+		A string where <p> tags have been replaced with newlines
+	"""
+	return re.sub("(<p>\s*)+", "\n", text)
