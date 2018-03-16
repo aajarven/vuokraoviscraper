@@ -10,13 +10,16 @@ import urllib
 
 if __name__ == '__main__':
 	parser = OptionParser("usage: %prog [options] url saveloc")
+	parser.add_option("-d", "--outputdir", dest="outputdir",
+				   help=("A directory in which the apartment directories",
+			 "will be created"), default="apartments/")
 	
 	(opts, args) = parser.parse_args()
-	if len(args) < 2:
-		parser.error("url or save location missing")
+	if len(args) < 1:
+		parser.error("url missing")
 
 	url = args[0]
-	dirname = args[1]
+	dirname = opts.outputdir
 	if not dirname.endswith('/'):
 		dirname = dirname + '/'
 
