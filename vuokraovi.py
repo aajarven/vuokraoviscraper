@@ -58,6 +58,7 @@ if __name__ == '__main__':
 	imageIndex = 1
 	for imageUrl in imageUrls:
 		urllib.urlretrieve(imageUrl,
-					 stringHandler.generateFilename(imageUrl, fullDirname + "kuva"
-									 + '{:02d}'.format(imageIndex)))
+					 stringHandler.generateFilename(imageUrl, fullDirname +
+									 str(dataDict['Kohdenumero']) +
+									 '-{:02d}'.format(imageIndex)))
 		imageIndex += 1
