@@ -1,0 +1,6 @@
+#!/bin/bash
+
+while read -u10 url; do
+	echo $url
+	python vuokraovi.py $url
+done 10<$1
