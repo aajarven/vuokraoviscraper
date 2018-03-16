@@ -1,5 +1,5 @@
 # Vuokraovi.com -tallentaja
-Tallentaa vuokraovi.com-palveluun listatuista asuntoilmoituksista kuvat ja asunnon tekstimuotoiset lisätiedot.
+Tallentaa vuokraovi.com-palveluun listatuista asuntoilmoituksista kuvat ja asunnon tekstimuotoiset lisätiedot. Kullekin asunnolle luodaan oma alikansio, joka on nimetty [kohdenumero]-[huoneet]-[ala]
 
 ## Käyttö
 ```
